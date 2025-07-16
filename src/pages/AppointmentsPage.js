@@ -25,41 +25,6 @@ function AppointmentsPage() {
     }
   }, []);
 
-  // Mock data for demonstration
-  const mockDoctors = [
-    { id: 1, name: "Dr. Meera Reddy", specialization: "Cardiologist", fee: 800, experience: "15 years", rating: 4.8 },
-    { id: 2, name: "Dr. Sunita Gupta", specialization: "Orthopedic Surgeon", fee: 700, experience: "12 years", rating: 4.7 },
-    { id: 3, name: "Dr. Priya Sharma", specialization: "Pediatrician", fee: 600, experience: "10 years", rating: 4.9 },
-    { id: 4, name: "Dr. Anita Patel", specialization: "Neurologist", fee: 900, experience: "18 years", rating: 4.6 },
-    { id: 5, name: "Dr. Kavya Nair", specialization: "Gynecologist", fee: 650, experience: "8 years", rating: 4.8 },
-    { id: 6, name: "Dr. Rashika Kumar", specialization: "General Surgeon", fee: 750, experience: "20 years", rating: 4.7 }
-  ];
-
-  const mockAppointments = [
-    {
-      id: 1,
-      doctorName: "Dr. Meera Reddy",
-      specialization: "Cardiologist",
-      date: "2025-07-20",
-      time: "10:00 AM",
-      status: "scheduled",
-      symptoms: "Chest pain and shortness of breath",
-      fee: 800,
-      paymentStatus: "paid"
-    },
-    {
-      id: 2,
-      doctorName: "Dr. Priya Sharma",
-      specialization: "Pediatrician",
-      date: "2025-07-22",
-      time: "2:00 PM",
-      status: "confirmed",
-      symptoms: "Regular checkup for child",
-      fee: 600,
-      paymentStatus: "paid"
-    }
-  ];
-
   const [bookingForm, setBookingForm] = useState({
     doctorId: '',
     appointmentDate: '',
@@ -79,6 +44,41 @@ function AppointmentsPage() {
   });
 
   useEffect(() => {
+    // Mock data for demonstration
+    const mockDoctors = [
+      { id: 1, name: "Dr. Meera Reddy", specialization: "Cardiologist", fee: 800, experience: "15 years", rating: 4.8 },
+      { id: 2, name: "Dr. Sunita Gupta", specialization: "Orthopedic Surgeon", fee: 700, experience: "12 years", rating: 4.7 },
+      { id: 3, name: "Dr. Priya Sharma", specialization: "Pediatrician", fee: 600, experience: "10 years", rating: 4.9 },
+      { id: 4, name: "Dr. Anita Patel", specialization: "Neurologist", fee: 900, experience: "18 years", rating: 4.6 },
+      { id: 5, name: "Dr. Kavya Nair", specialization: "Gynecologist", fee: 650, experience: "8 years", rating: 4.8 },
+      { id: 6, name: "Dr. Rashika Kumar", specialization: "General Surgeon", fee: 750, experience: "20 years", rating: 4.7 }
+    ];
+
+    const mockAppointments = [
+      {
+        id: 1,
+        doctorName: "Dr. Meera Reddy",
+        specialization: "Cardiologist",
+        date: "2025-07-20",
+        time: "10:00 AM",
+        status: "scheduled",
+        symptoms: "Chest pain and shortness of breath",
+        fee: 800,
+        paymentStatus: "paid"
+      },
+      {
+        id: 2,
+        doctorName: "Dr. Sunita Gupta",
+        specialization: "Orthopedic Surgeon",
+        date: "2025-07-22",
+        time: "2:30 PM",
+        status: "completed",
+        symptoms: "Knee pain and stiffness",
+        fee: 700,
+        paymentStatus: "paid"
+      }
+    ];
+
     // Simulate loading doctors and appointments
     setTimeout(() => {
       setDoctors(mockDoctors);
