@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import SMSService from '../services/SMSService';
+import DatabaseService from '../services/DatabaseService';
+import NotificationService from '../services/NotificationService';
 
 function AuthModal({ isOpen, onClose, onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -39,51 +42,99 @@ function AuthModal({ isOpen, onClose, onLogin }) {
     setSuccessMessage('');
 
     try {
-      // For demo purposes, simulate API call
-      setTimeout(() => {
+      // Generate 6-digit OTP
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      
+      // Store OTP temporarily (in production, store in backend)
+      sessionStorage.setItem('otp', otp);
+      sessionStorage.setItem('otpExpiry', Date.now() + 5 * 60 * 1000); // 5 minutes
+      
+      // Send OTP via SMS service
+      const smsResult = await SMSService.sendOTP(formData.mobile, otp);
+      
+      if (smsResult.success) {
         setShowMobileOtp(true);
-        setSuccessMessage('OTP sent to your mobile number! Demo OTP: 123456');
-        setLoading(false);
-      }, 1000);
+        setSuccessMessage(`OTP sent to ${formData.mobile}. Valid for 5 minutes.`);
+        
+        // Request browser notification permission
+        await NotificationService.requestNotificationPermission();
+        NotificationService.showNotification('OTP Sent', `OTP sent to ${formData.mobile}`);
+      } else {
+        setError('Failed to send OTP. Please try again.');
+      }
     } catch (error) {
+      console.error('OTP Send Error:', error);
       setError('Failed to send OTP. Please try again.');
+    } finally {
       setLoading(false);
     }
   };
 
   const verifyMobileOtp = async (e) => {
     e.preventDefault();
+    setLoading(true);
     
     if (!formData.otp) {
       setError('Please enter the OTP');
+      setLoading(false);
       return;
     }
 
-    // Demo verification - in real app, verify with backend
-    if (formData.otp === '123456') {
-      // Create demo user data
-      const userData = {
-        id: Date.now(),
-        username: `User_${formData.mobile.slice(-4)}`,
-        mobile: formData.mobile,
-        email: formData.email || `${formData.mobile}@example.com`
-      };
-
-      // Store in localStorage
-      localStorage.setItem('user', JSON.stringify(userData));
-      localStorage.setItem('token', 'demo-token-' + Date.now());
-
-      if (onLogin) {
-        onLogin(userData);
+    try {
+      // Check OTP expiry
+      const otpExpiry = sessionStorage.getItem('otpExpiry');
+      if (Date.now() > parseInt(otpExpiry)) {
+        setError('OTP has expired. Please request a new one.');
+        setLoading(false);
+        return;
       }
 
-      setSuccessMessage('Login successful!');
-      setTimeout(() => {
-        onClose();
-        resetForm();
-      }, 1000);
-    } else {
-      setError('Invalid OTP. Please try again.');
+      // Verify OTP with SMS service
+      const verifyResult = await SMSService.verifyOTP(formData.mobile, formData.otp);
+      
+      if (verifyResult.success) {
+        // Authenticate with backend
+        const authResult = await DatabaseService.authenticateUser(formData.mobile, formData.otp);
+        
+        if (authResult.success) {
+          // Store user data
+          localStorage.setItem('user', JSON.stringify(authResult.user));
+          localStorage.setItem('token', authResult.token);
+          
+          // Connect to notification service
+          NotificationService.connect(authResult.user.id);
+          
+          // Notify parent component
+          if (onLogin) {
+            onLogin(authResult.user);
+          }
+
+          setSuccessMessage('Login successful!');
+          
+          // Send welcome notification
+          await NotificationService.sendSMSNotification(
+            formData.mobile, 
+            'Welcome to Jagjeevan Hospital! Your account is now active.'
+          );
+
+          setTimeout(() => {
+            onClose();
+            resetForm();
+          }, 1000);
+        } else {
+          setError(authResult.error || 'Authentication failed');
+        }
+      } else {
+        setError('Invalid OTP. Please try again.');
+      }
+    } catch (error) {
+      console.error('OTP Verification Error:', error);
+      setError('Verification failed. Please try again.');
+    } finally {
+      setLoading(false);
+      // Clean up session storage
+      sessionStorage.removeItem('otp');
+      sessionStorage.removeItem('otpExpiry');
     }
   };
 
