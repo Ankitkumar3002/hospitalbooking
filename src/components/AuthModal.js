@@ -5,6 +5,7 @@ function AuthModal({ isOpen, onClose, onLogin }) {
   const [loginMethod, setLoginMethod] = useState('email'); // 'email' or 'mobile'
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showOtpVerification, setShowOtpVerification] = useState(false);
+  const [showMobileOtp, setShowMobileOtp] = useState(false); // New state for mobile OTP
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -25,6 +26,83 @@ function AuthModal({ isOpen, onClose, onLogin }) {
       ...prev,
       [name]: value
     }));
+  };
+
+  const sendMobileOtp = async () => {
+    if (!formData.mobile || formData.mobile.length < 10) {
+      setError('Please enter a valid mobile number');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+    setSuccessMessage('');
+
+    try {
+      // For demo purposes, simulate API call
+      setTimeout(() => {
+        setShowMobileOtp(true);
+        setSuccessMessage('OTP sent to your mobile number! Demo OTP: 123456');
+        setLoading(false);
+      }, 1000);
+    } catch (error) {
+      setError('Failed to send OTP. Please try again.');
+      setLoading(false);
+    }
+  };
+
+  const verifyMobileOtp = async (e) => {
+    e.preventDefault();
+    
+    if (!formData.otp) {
+      setError('Please enter the OTP');
+      return;
+    }
+
+    // Demo verification - in real app, verify with backend
+    if (formData.otp === '123456') {
+      // Create demo user data
+      const userData = {
+        id: Date.now(),
+        username: `User_${formData.mobile.slice(-4)}`,
+        mobile: formData.mobile,
+        email: formData.email || `${formData.mobile}@example.com`
+      };
+
+      // Store in localStorage
+      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('token', 'demo-token-' + Date.now());
+
+      if (onLogin) {
+        onLogin(userData);
+      }
+
+      setSuccessMessage('Login successful!');
+      setTimeout(() => {
+        onClose();
+        resetForm();
+      }, 1000);
+    } else {
+      setError('Invalid OTP. Please try again.');
+    }
+  };
+
+  const resetForm = () => {
+    setFormData({
+      username: '',
+      email: '',
+      mobile: '',
+      password: '',
+      confirmPassword: '',
+      otp: '',
+      newPassword: '',
+      confirmNewPassword: ''
+    });
+    setShowMobileOtp(false);
+    setShowOtpVerification(false);
+    setShowForgotPassword(false);
+    setError('');
+    setSuccessMessage('');
   };
 
   const sendOtp = async () => {
@@ -87,6 +165,7 @@ function AuthModal({ isOpen, onClose, onLogin }) {
   const resetToLogin = () => {
     setShowForgotPassword(false);
     setShowOtpVerification(false);
+    setShowMobileOtp(false);
     setIsLogin(true);
     setError('');
     setSuccessMessage('');
@@ -108,6 +187,21 @@ function AuthModal({ isOpen, onClose, onLogin }) {
     setError('');
 
     try {
+      // Handle mobile login with OTP
+      if (isLogin && loginMethod === 'mobile') {
+        if (!showMobileOtp) {
+          // First step: Send OTP
+          setLoading(false);
+          sendMobileOtp();
+          return;
+        } else {
+          // Second step: Verify OTP
+          setLoading(false);
+          verifyMobileOtp(e);
+          return;
+        }
+      }
+
       if (!isLogin && formData.password !== formData.confirmPassword) {
         setError('Passwords do not match');
         setLoading(false);
@@ -116,9 +210,7 @@ function AuthModal({ isOpen, onClose, onLogin }) {
 
       const endpoint = isLogin ? '/api/login' : '/api/register';
       const payload = isLogin 
-        ? (loginMethod === 'email' 
-            ? { email: formData.email, password: formData.password }
-            : { mobile: formData.mobile, password: formData.password })
+        ? { email: formData.email, password: formData.password } // Email login uses password
         : { 
             username: formData.username, 
             email: formData.email,
@@ -148,16 +240,7 @@ function AuthModal({ isOpen, onClose, onLogin }) {
         
         // Close modal and reset form
         onClose();
-        setFormData({
-          username: '',
-          email: '',
-          mobile: '',
-          password: '',
-          confirmPassword: '',
-          otp: '',
-          newPassword: '',
-          confirmNewPassword: ''
-        });
+        resetForm();
       } else {
         setError(data.message || 'An error occurred');
       }
@@ -490,28 +573,55 @@ function AuthModal({ isOpen, onClose, onLogin }) {
                       value={formData.mobile}
                       onChange={handleInputChange}
                       required={loginMethod === 'mobile'}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      disabled={showMobileOtp && isLogin && loginMethod === 'mobile'}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
                       placeholder="+91 9999999999"
                       pattern="[+]?[0-9\s\-]+"
                     />
                   </div>
                 )}
 
-                <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter your password"
-                  />
-                </div>
+                {/* OTP Field for Mobile Login */}
+                {isLogin && loginMethod === 'mobile' && showMobileOtp && (
+                  <div>
+                    <label htmlFor="otp" className="block text-sm font-medium text-gray-700 mb-2">
+                      Enter OTP *
+                    </label>
+                    <input
+                      type="text"
+                      id="otp"
+                      name="otp"
+                      value={formData.otp}
+                      onChange={handleInputChange}
+                      required
+                      maxLength="6"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter 6-digit OTP"
+                    />
+                    <p className="text-sm text-gray-500 mt-1">
+                      OTP sent to {formData.mobile}
+                    </p>
+                  </div>
+                )}
+
+                {/* Password Field - Hidden for mobile login */}
+                {!(isLogin && loginMethod === 'mobile') && (
+                  <div>
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter your password"
+                    />
+                  </div>
+                )}
 
                 {!isLogin && (
                   <div>
@@ -536,8 +646,25 @@ function AuthModal({ isOpen, onClose, onLogin }) {
                   disabled={loading}
                   className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {loading ? 'Please wait...' : (isLogin ? 'Login' : 'Sign Up')}
+                  {loading ? 'Please wait...' : 
+                   (isLogin && loginMethod === 'mobile' && !showMobileOtp) ? 'Send OTP' :
+                   (isLogin && loginMethod === 'mobile' && showMobileOtp) ? 'Verify OTP' :
+                   (isLogin ? 'Login' : 'Sign Up')}
                 </button>
+
+                {/* Resend OTP for Mobile Login */}
+                {isLogin && loginMethod === 'mobile' && showMobileOtp && (
+                  <div className="mt-3 text-center">
+                    <button
+                      type="button"
+                      onClick={sendMobileOtp}
+                      disabled={loading}
+                      className="text-blue-600 hover:text-blue-800 font-medium text-sm disabled:opacity-50"
+                    >
+                      Resend OTP
+                    </button>
+                  </div>
+                )}
               </form>
 
               {/* Forgot Password Link */}
