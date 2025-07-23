@@ -51,7 +51,8 @@ function AppointmentsPage() {
       { id: 3, name: "Dr. Priya Sharma", specialization: "Pediatrician", fee: 600, experience: "10 years", rating: 4.9 },
       { id: 4, name: "Dr. Anita Patel", specialization: "Neurologist", fee: 900, experience: "18 years", rating: 4.6 },
       { id: 5, name: "Dr. Kavya Nair", specialization: "Gynecologist", fee: 650, experience: "8 years", rating: 4.8 },
-      { id: 6, name: "Dr. Rashika Kumar", specialization: "General Surgeon", fee: 750, experience: "20 years", rating: 4.7 }
+      { id: 6, name: "Dr. Rashika Kumar", specialization: "General Surgeon", fee: 750, experience: "20 years", rating: 4.7 },
+      { id: 7, name: "Dr. Suneet Gupta", specialization: "Cardiologist", fee: 800, experience: "15 years", rating: 4.8 }
     ];
 
     const mockAppointments = [

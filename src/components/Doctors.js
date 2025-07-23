@@ -30,7 +30,7 @@ const Doctors = () => {
       specialization: "Pediatrician", 
       experience: "10 years", 
       rating: 4.9,
-      profileImage: "https://images.unsplash.com/photo-1551190822-a9333d879b1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      profileImage: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
     },
     { 
       id: 4, 
@@ -55,6 +55,14 @@ const Doctors = () => {
       experience: "20 years", 
       rating: 4.7,
       profileImage: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    },
+    { 
+      id: 7, 
+      name: "Dr. Suneet Gupta", 
+      specialization: "Cardiologist", 
+      experience: "15 years", 
+      rating: 4.8,
+      profileImage: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
     }
   ];
   

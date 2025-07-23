@@ -34,7 +34,7 @@ function DoctorsPage() {
       specialization: "Pediatrician",
       experience: "10 years",
       qualification: "MBBS, MD (Pediatrics)",
-      image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80",
+      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80",
       rating: 4.9,
       consultationFee: 600,
       availability: "Mon-Fri: 8:00 AM - 4:00 PM",
@@ -79,6 +79,19 @@ function DoctorsPage() {
       availability: "Mon-Fri: 7:00 AM - 3:00 PM",
       about: "Dr. Rashika Kumar is a senior general surgeon with extensive experience in minimally invasive surgery, trauma care, and emergency procedures. She has performed over 8000 surgeries with excellent success rates and is known for her surgical expertise and dedication to patient safety.",
       languages: ["English", "Hindi", "Bengali"]
+    },
+    {
+      id: 7,
+      name: "Dr. Suneet Gupta",
+      specialization: "Cardiologist",
+      experience: "15 years",
+      qualification: "MBBS, MD (Cardiology), DM",
+      image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80",
+      rating: 4.8,
+      consultationFee: 800,
+      availability: "Mon-Sat: 9:00 AM - 5:00 PM",
+      about: "Dr. Suneet Gupta is a renowned cardiologist with expertise in interventional cardiology, cardiac catheterization, and heart disease prevention. He has successfully treated thousands of patients with complex cardiac conditions and is known for his patient-centered approach and clinical excellence.",
+      languages: ["English", "Hindi", "Punjabi"]
     }
   ];
 

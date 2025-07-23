@@ -184,11 +184,11 @@ function AboutPage() {
             </div>
             <div className="text-center">
               <img 
-                src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80" 
+                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80" 
                 alt="Dr. Priya Sharma - CMO" 
                 className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
                 onError={(e) => {
-                  e.target.src = "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80";
+                  e.target.src = "https://images.unsplash.com/photo-1594824884569-dee8ecafe4e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80";
                 }}
               />
               <h3 className="text-xl font-semibold text-gray-900 mb-1">Dr. Priya Sharma</h3>
