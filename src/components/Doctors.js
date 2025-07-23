@@ -14,7 +14,7 @@ const Doctors = () => {
       specialization: "Cardiologist", 
       experience: "15 years", 
       rating: 4.8,
-      profileImage: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      profileImage: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     },
     { 
       id: 2, 
@@ -22,7 +22,7 @@ const Doctors = () => {
       specialization: "Orthopedic Surgeon", 
       experience: "12 years", 
       rating: 4.7,
-      profileImage: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      profileImage: "https://images.unsplash.com/photo-1594824884569-dee8ecafe4e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     },
     { 
       id: 3, 
@@ -30,7 +30,7 @@ const Doctors = () => {
       specialization: "Pediatrician", 
       experience: "10 years", 
       rating: 4.9,
-      profileImage: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      profileImage: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     },
     { 
       id: 4, 
@@ -38,7 +38,7 @@ const Doctors = () => {
       specialization: "Neurologist", 
       experience: "18 years", 
       rating: 4.6,
-      profileImage: "https://images.unsplash.com/photo-1594824720804-fe500bb36218?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      profileImage: "https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     },
     { 
       id: 5, 
@@ -46,7 +46,7 @@ const Doctors = () => {
       specialization: "Gynecologist", 
       experience: "8 years", 
       rating: 4.8,
-      profileImage: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      profileImage: "https://images.unsplash.com/photo-1584467735871-8e8d8b2e3b5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     },
     { 
       id: 6, 
@@ -54,7 +54,7 @@ const Doctors = () => {
       specialization: "General Surgeon", 
       experience: "20 years", 
       rating: 4.7,
-      profileImage: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      profileImage: "https://images.unsplash.com/photo-1638202993928-7267aad84c31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     },
     { 
       id: 7, 
@@ -62,7 +62,7 @@ const Doctors = () => {
       specialization: "Cardiologist", 
       experience: "15 years", 
       rating: 4.8,
-      profileImage: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      profileImage: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     }
   ];
   

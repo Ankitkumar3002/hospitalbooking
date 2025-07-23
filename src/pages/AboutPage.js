@@ -184,7 +184,7 @@ function AboutPage() {
             </div>
             <div className="text-center">
               <img 
-                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80" 
+                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&h=300&q=80" 
                 alt="Dr. Priya Sharma - CMO" 
                 className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
                 onError={(e) => {
