@@ -20,10 +20,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "build:netlify": "cross-env CI=false GENERATE_SOURCEMAP=false react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "build:netlify": "cross-env CI=false GENERATE_SOURCEMAP=false craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,10 +45,21 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "assert": "^2.1.0",
     "autoprefixer": "^10.4.14",
+    "browserify-zlib": "^0.2.0",
+    "buffer": "^6.0.3",
     "cross-env": "^7.0.3",
+    "crypto-browserify": "^3.12.1",
+    "https-browserify": "^1.0.0",
     "postcss": "^8.4.24",
-    "tailwindcss": "^3.3.0"
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "tailwindcss": "^3.3.0",
+    "url": "^0.11.4",
+    "util": "^0.12.5"
   },
   "proxy": "http://localhost:5000"
 }

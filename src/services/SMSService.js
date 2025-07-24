@@ -1,4 +1,5 @@
 // Real SMS OTP Service Integration
+// eslint-disable-next-line no-unused-vars
 const TWILIO_CONFIG = {
   accountSid: process.env.REACT_APP_TWILIO_ACCOUNT_SID,
   authToken: process.env.REACT_APP_TWILIO_AUTH_TOKEN,
